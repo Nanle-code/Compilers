@@ -1,0 +1,21 @@
+WHITESPACE = _{ " " | "\t" | "\n" }
+
+program = { statement* }
+
+statement = _{ let_stmt | expr_stmt }
+
+let_stmt = { "let" ~ ident ~ "=" ~ expr ~ ";" }
+
+expr_stmt = { expr ~ ";" }
+
+expr = { addition }
+
+addition = { multiplication ~ ( "+" ~ multiplication )* }
+
+multiplication = { atom ~ ( "*" ~ atom )* }
+
+atom = { number | ident | "(" ~ expr ~ ")" }
+
+ident = @{ ASCII_ALPHA ~ (ASCII_ALPHANUMERIC | "_")* }
+
+number = @{ ASCII_DIGIT+ }
